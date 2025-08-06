@@ -1,6 +1,5 @@
 import { ERROR_INTERNAL_SERVER_DB, ERROR_INVALID_ID, ERROR_REQUIRED_FIELDS } from "../utils/messages";
 import prismaClient from "../prisma/index";
-import { Jwt } from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
 interface User {
@@ -47,7 +46,6 @@ export class ListUsersService {
     }
 }
 
-
 export class DeleteUserService {
     async execute(id: number) {
         try {
@@ -90,7 +88,6 @@ export class UpdateUserService {
         }
     }
 }
-
 
 export class GetUserByIdService {
     async execute(id: number) {

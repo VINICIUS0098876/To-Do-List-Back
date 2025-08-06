@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SUCCESS_CREATED_ITEM, SUCCESS_DELETED_ITEM, SUCCESS_LOGIN_ITEM, SUCCESS_UPDATED_ITEM } from "../utils/messages";
-import { ERROR_NOT_FOUND, ERROR_CONTENT_TYPE, ERROR_INTERNAL_SERVER, ERROR_INTERNAL_SERVER_DB, ERROR_INVALID_CREDENTIALS, ERROR_INVALID_ID, ERROR_REQUIRED_FIELDS } from "../utils/messages";
+import { ERROR_NOT_FOUND, ERROR_INTERNAL_SERVER, ERROR_INVALID_ID, ERROR_REQUIRED_FIELDS } from "../utils/messages";
 import { CreateUserService, UpdateUserService, DeleteUserService, GetUserByIdService, ListUsersService } from "../services/user";
 
 export class CreateUserController {
