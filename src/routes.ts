@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { CreateUserController, UpdateUserController, ListUsersController, GetUserByIdController, DeleteUserController } from './controllers/user_controller';
+import { CreateUserController, UpdateUserController, ListUsersController, GetUserByIdController, LoginUserController, DeleteUserController } from './controllers/user_controller';
 import { CreateTaskController, UpdateTaskController, DeleteTaskController, GetTaskByIdController, GetTaskController, PatchTaskController } from './controllers/task_controller';
 
 const router = Router();
@@ -14,6 +14,8 @@ router.get('/users', async (request, response) => new ListUsersController().hand
 router.get('/users/:id', async (request, response) => new GetUserByIdController().handle(request, response));
 
 router.delete('/users/:id', async (request, response) => new DeleteUserController().handle(request, response));
+
+router.post('/login', async (request, response) => new LoginUserController().handle(request, response));
 
 // Task routes
 router.post('/tasks', async (request, response) => new CreateTaskController().handle(request, response));

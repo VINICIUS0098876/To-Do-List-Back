@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SUCCESS_CREATED_ITEM, SUCCESS_DELETED_ITEM, SUCCESS_LOGIN_ITEM, SUCCESS_UPDATED_ITEM } from "../utils/messages";
 import { ERROR_NOT_FOUND, ERROR_INTERNAL_SERVER, ERROR_INVALID_ID, ERROR_REQUIRED_FIELDS } from "../utils/messages";
-import { CreateUserService, UpdateUserService, DeleteUserService, GetUserByIdService, ListUsersService } from "../services/user";
+import { CreateUserService, UpdateUserService, DeleteUserService, GetUserByIdService, ListUsersService, LoginUserService } from "../services/user";
 
 export class CreateUserController {
     async handle(request: Request, response: Response) {
@@ -96,7 +96,6 @@ export class DeleteUserController {
     }
 }
 
-
 export class GetUserByIdController {
     async handle(request: Request, response: Response) {
         const  id  = Number(request.params.id); 
@@ -124,6 +123,25 @@ export class GetUserByIdController {
 
 }
 
+export class LoginUserController {
+    async handle(request: Request, response: Response) {
+        const { email, password_hash } = request.body;
 
+        if (!email || !password_hash) {
+            return response.status(400).json({ ...ERROR_REQUIRED_FIELDS });
+        }
+
+        try {
+            const loginUserService = new LoginUserService();
+            const login = await loginUserService.execute(email, password_hash);
+
+            return response.status(200).json({...SUCCESS_LOGIN_ITEM, Login: login});
+
+        } catch (error) {
+            console.log("Error logging in user:", error);
+            return response.status(500).json({ ...ERROR_INTERNAL_SERVER });
+        }
+    }
+}
 
 
