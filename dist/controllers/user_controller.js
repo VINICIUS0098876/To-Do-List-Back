@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetUserByIdController = exports.DeleteUserController = exports.UpdateUserController = exports.ListUsersController = exports.CreateUserController = void 0;
+exports.LoginUserController = exports.GetUserByIdController = exports.DeleteUserController = exports.UpdateUserController = exports.ListUsersController = exports.CreateUserController = void 0;
 const messages_1 = require("../utils/messages");
 const messages_2 = require("../utils/messages");
 const user_1 = require("../services/user");
@@ -103,4 +103,25 @@ class GetUserByIdController {
     }
 }
 exports.GetUserByIdController = GetUserByIdController;
+class LoginUserController {
+    async handle(request, response) {
+        const { email, password_hash } = request.body;
+        // Validação de campos obrigatórios
+        if (!email || !password_hash) {
+            return response.status(400).json({ ...messages_2.ERROR_REQUIRED_FIELDS });
+        }
+        try {
+            const loginUserService = new user_1.LoginUserService();
+            const login = await loginUserService.execute(email, password_hash);
+            // Retorna token e dados do usuário
+            return response.status(200).json({ ...messages_1.SUCCESS_LOGIN_ITEM, Login: login });
+        }
+        catch (error) {
+            // Tratamento seguro de erro
+            const message = error instanceof Error ? error.message : "Erro ao fazer login";
+            return response.status(401).json({ message });
+        }
+    }
+}
+exports.LoginUserController = LoginUserController;
 //# sourceMappingURL=user_controller.js.map

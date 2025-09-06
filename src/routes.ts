@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { CreateUserController, UpdateUserController, ListUsersController, GetUserByIdController, LoginUserController, DeleteUserController } from './controllers/user_controller';
 import { CreateTaskController, UpdateTaskController, DeleteTaskController, GetTaskByIdController, GetTaskController, PatchTaskController } from './controllers/task_controller';
+import { authMiddleware } from './middlewares/middlewareAuth';
 
 const router = Router();
 
@@ -18,17 +19,17 @@ router.delete('/users/:id', async (request, response) => new DeleteUserControlle
 router.post('/login', async (request, response) => new LoginUserController().handle(request, response));
 
 // Task routes
-router.post('/tasks', async (request, response) => new CreateTaskController().handle(request, response));
+router.post('/tasks', authMiddleware, async (request, response) => new CreateTaskController().handle(request, response));
 
-router.put('/tasks/:id', async (request, response) => new UpdateTaskController().handle(request, response));
+router.put('/tasks/:id', authMiddleware, async (request, response) => new UpdateTaskController().handle(request, response));
 
-router.delete('/tasks/:id', async (request, response) => new DeleteTaskController().handle(request, response));
+router.delete('/tasks/:id', authMiddleware, async (request, response) => new DeleteTaskController().handle(request, response));
 
-router.get('/tasks/:id', async (request, response) => new GetTaskByIdController().handle(request, response));
+router.get('/tasks/:id', authMiddleware, async (request, response) => new GetTaskByIdController().handle(request, response));
 
-router.get('/tasks', async (request, response) => new GetTaskController().handle(request, response));
+router.get('/tasks', authMiddleware, async (request, response) => new GetTaskController().handle(request, response));
 
-router.patch('/tasks/:id', async (request, response) => new PatchTaskController().handle(request, response));
+router.patch('/tasks/:id', authMiddleware, async (request, response) => new PatchTaskController().handle(request, response));
 
 
 export default router;

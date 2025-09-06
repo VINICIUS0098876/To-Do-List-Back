@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenJWT = void 0;
 const jwt = require("jsonwebtoken");
 const SECRET = 'todolist123';
-const EXPIRES = 180;
+const EXPIRES = 18000;
 class TokenJWT {
     static generateToken(payload) {
         return jwt.sign(payload, SECRET, {

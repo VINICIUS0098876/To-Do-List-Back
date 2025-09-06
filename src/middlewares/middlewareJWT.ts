@@ -1,7 +1,7 @@
 import * as jwt from "jsonwebtoken";
 
 const SECRET = 'todolist123';
-const EXPIRES = 180;
+const EXPIRES = 18000;
 
 export class TokenJWT {
     static generateToken(payload: object): string {

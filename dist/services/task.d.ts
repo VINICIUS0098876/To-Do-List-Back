@@ -50,7 +50,7 @@ export declare class DeleteTaskService {
     } | undefined>;
 }
 export declare class GetTaskService {
-    execute(): Promise<{
+    execute(id_user: number): Promise<{
         id_user: number;
         title: string;
         description_task: string | null;
@@ -62,7 +62,7 @@ export declare class GetTaskService {
     }[] | undefined>;
 }
 export declare class GetTaskByIdService {
-    execute(id: number): Promise<{
+    execute(id: number, id_user: number): Promise<{
         id_user: number;
         title: string;
         description_task: string | null;
@@ -74,16 +74,7 @@ export declare class GetTaskByIdService {
     } | null | undefined>;
 }
 export declare class PatchTaskService {
-    execute(id: number, { is_done }: taskUpdate): Promise<{
-        id_user: number;
-        title: string;
-        description_task: string | null;
-        is_done: boolean | null;
-        due_date: Date | null;
-        created_at: Date | null;
-        updated_at: Date | null;
-        id_task: number;
-    } | undefined>;
+    execute(id: number, id_user: number, { is_done }: taskUpdate): Promise<import(".prisma/client").Prisma.BatchPayload | undefined>;
 }
 export {};
 //# sourceMappingURL=task.d.ts.map

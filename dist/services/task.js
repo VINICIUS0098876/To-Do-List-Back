@@ -72,9 +72,13 @@ class DeleteTaskService {
 }
 exports.DeleteTaskService = DeleteTaskService;
 class GetTaskService {
-    async execute() {
+    async execute(id_user) {
         try {
-            const task = await prisma_1.default.tasks.findMany();
+            const task = await prisma_1.default.tasks.findMany({
+                where: {
+                    id_user: id_user
+                }
+            });
             return task;
         }
         catch (error) {
@@ -84,14 +88,15 @@ class GetTaskService {
 }
 exports.GetTaskService = GetTaskService;
 class GetTaskByIdService {
-    async execute(id) {
+    async execute(id, id_user) {
         try {
-            if (!id) {
+            if (!id || !id_user) {
                 console.log({ ...messages_1.ERROR_INVALID_ID });
             }
-            const task = await prisma_1.default.tasks.findUnique({
+            const task = await prisma_1.default.tasks.findFirst({
                 where: {
-                    id_task: id
+                    id_task: id,
+                    id_user: id_user
                 }
             });
             return task;
@@ -103,11 +108,12 @@ class GetTaskByIdService {
 }
 exports.GetTaskByIdService = GetTaskByIdService;
 class PatchTaskService {
-    async execute(id, { is_done }) {
+    async execute(id, id_user, { is_done }) {
         try {
-            const task = await prisma_1.default.tasks.update({
+            const task = await prisma_1.default.tasks.updateMany({
                 where: {
-                    id_task: id
+                    id_task: id,
+                    id_user: id_user
                 },
                 data: {
                     is_done: is_done

@@ -43,5 +43,15 @@ export declare class GetUserByIdService {
         id_user: number;
     } | null | undefined>;
 }
+export declare class LoginUserService {
+    execute(email: string, password_hash: string): Promise<{
+        user: {
+            id_user: number;
+            name_user: string;
+            email: string;
+        };
+        token: string;
+    }>;
+}
 export {};
 //# sourceMappingURL=user.d.ts.map
